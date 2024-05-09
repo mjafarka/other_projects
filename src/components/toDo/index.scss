@@ -1,0 +1,52 @@
+.todo {
+    margin-top: 15vh;
+    // border: 1px solid red;
+
+    h3 {
+        font-size: 20px;
+    }
+
+
+    .checkedItem {
+        font-weight: 500;
+        display: flex;
+        justify-content: left;
+    }
+
+    .appendInput {
+        // border: 1px solid blue;
+        height: 60vh;
+        display: table-cell;
+        vertical-align: bottom;
+        width: 20vw;
+
+        div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            position: sticky;
+            bottom: 50px;
+
+            input {
+                border: 3px solid black;
+                border-radius: 30px;
+                padding-left: 10px;
+                width: 90%;
+
+            }
+
+            input:focus {
+                outline: none;
+            }
+
+            button {
+                border: 3px solid green;
+                width: 125px;
+                border-radius: 50px;
+                font-weight: 700;
+            }
+        }
+        
+    }
+}

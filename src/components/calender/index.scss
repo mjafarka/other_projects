@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+
+body {
+    background-color: rgb(226, 208, 215);
+}
+
+.calender {
+    .monthAndYear {
+        display: flex;
+        gap: 2rem;
+        margin-left: 20%;
+        font-size: 30px;
+        font-family: "IBM Plex Mono", monospace;
+        height: 15vh;
+    }
+    .days {
+        display: grid;
+        grid-template-rows: 30px repeat(5,calc(18vh - 30px));
+        grid-template-columns:  repeat(7,auto);
+        margin-left: 2%;
+        margin-right: 2%;
+
+        div {
+            border-right: 3px solid black;
+            border-bottom: 3px solid black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: "IBM Plex Mono", monospace;
+            font-weight: 500;
+            font-size: 18px;
+
+            
+        }
+        .day {
+            font-size: 26px;
+        }
+
+        // :nth-child(n+1):nth-child(-n+7){
+        //     border-top: 1px solid black;
+
+        // }
+
+        // :nth-child(n+1):nth-child(-n+7){
+        //     border-top: 2px solid rgb(78, 155, 110);
+
+        // }
+
+        :nth-child(n+36):nth-child(-n+42) {
+            border-bottom: none;
+        }
+
+        :nth-child(7n+1){
+            border-left: none;
+        }
+        
+        :nth-child(7n) {
+            border-right: none;
+        }
+    }
+}
