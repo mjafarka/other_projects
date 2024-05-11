@@ -32,11 +32,6 @@ function ToDo() {
         list={pending}
         handleCheckClick={handleCheckClick}
       />
-      <ToDoList
-        name={"Completed"}
-        list={pending}
-        handleCheckClick={handleCheckClick}
-      />
       <div className="appendInput">
       <div>
         <input

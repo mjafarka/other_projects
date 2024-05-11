@@ -1,35 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../index.scss";
 import Element from "./htmlBlocks/Element";
 
+
 const ToDoList = ({ name, list, handleCheckClick }) => {
-  const completedItems = [];
-  const pendingItem = [];
   const [rightClicked, setRightClicked] = useState(-1);
+
+  const [elements, setElements] = useState([]);
 
   const handleRightClick = (id) => {
     setRightClicked(id);
   }
 
-  debugger
+  //from list we are getting the object {1:true}
 
-  for (let id in list) {
-    if (name === "Completed" && list[id]) {
-      completedItems.push(
-        <Element id={id} list={list} handleCheckClick={handleCheckClick} rightClicked={rightClicked} setRightClicked={(id) => handleRightClick(id)} />
-      );
-    } else if (name === "Pending" && !list[id]) {
-      pendingItem.push(
-        <Element id={id} list={list} handleCheckClick={handleCheckClick} rightClicked={rightClicked} setRightClicked={(id) => setRightClicked(id)}/>
-      );
+  useEffect(() => {
+    const tempElements = [];
+    for (let id in list) {
+      tempElements.push(<Element id={id}
+        list={list}
+        handleCheckClick={handleCheckClick}
+        rightClicked={rightClicked}
+        setRightClicked={(id) => handleRightClick(id)} />)
     }
-  }
-
+    setElements(tempElements);
+  }, [rightClicked, list]);
   return (
     <div>
-      <h4 className="checkedItem">{name === "Completed" ? "Checked Items" : ""}</h4>
+      {/* <h4 className="checkedItem">{name === "Completed" ? "Checked Items" : ""}</h4> */}
       <div className="todos">
-        {name === "Completed" ? completedItems : pendingItem}
+        {elements.filter(element => (!element.props.list[element.props.id])).map(pend => {
+          return pend;
+        })}
+        <h4>Completed</h4>
+        {elements.filter(element => (element.props.list[element.props.id])).map(pend => {
+          return pend;
+        })}
       </div>
     </div>
   );

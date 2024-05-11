@@ -1,0 +1,1 @@
+elemnent.props.list => object

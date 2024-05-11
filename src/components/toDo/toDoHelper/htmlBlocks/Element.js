@@ -4,11 +4,13 @@ import "./Element.scss";
 
 function Element(props) {
   const { id, list, handleCheckClick, setRightClicked, rightClicked } = props;
+console.log("right clicked", rightClicked);
 
   const rightClickHandler = (e) => {
     e.preventDefault();
     setRightClicked(id);
   };
+
 
   return (
     <div>
@@ -24,7 +26,7 @@ function Element(props) {
         </div>
         <div style={{ display: id === rightClicked ? "inline-block" : "none" }}>
           <button>Edit</button>
-          <button>Update</button>
+          <button>Delete</button>
         </div>
       </label>
     </div>
