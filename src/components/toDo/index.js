@@ -1,17 +1,17 @@
 import React, { useMemo, useState } from "react";
 import "./index.scss";
 import ToDoList from "./toDoHelper/ToDoList";
+import { getTaskFromDate } from "../dummyDB/db";
 
-function ToDo() {
+function ToDo({date}) {
   const [pending, setPending] = useState({});
   const [input, setInput] = useState("");
   useMemo(() => {
-    setPending({ ...pending, 1: true, 2: false });
-  }, []);
+    setPending(getTaskFromDate(date));
+  }, [date]);
 
   const handleCheckClick = (prop) => {
     setPending({ ...pending, [prop]: !pending[prop] });
-    console.log("pending", pending, "    prop : ", prop);
   };
 
   const appendInput = (val) => {
@@ -20,6 +20,7 @@ function ToDo() {
   };
 
   const submitInput = (input) => {
+    console.log("input",input);
     setPending({ ...pending, [input]: false });
     setInput("");
   };

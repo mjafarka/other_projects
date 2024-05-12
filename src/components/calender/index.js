@@ -1,7 +1,7 @@
 import React from "react";
 import "./index.scss";
 
-const Calender = () => {
+const Calender = ({passDate}) => {
   const year = 2024;
   const month = 4;
   const firstDay = new Date(year, month, 1);
@@ -33,6 +33,12 @@ const Calender = () => {
   for (let i = firstDay.getDate(); i <= lastDay.getDate(); i++) {
     days.push(new Date(year, month, i));
   }
+
+  const handleDateClick = (index) => {
+    passDate(days[index].toString().slice(4,15));
+  }
+
+  debugger
   const cells = new Array(35).fill(null);
   let offset = firstDay.getDay();
   return (
@@ -49,8 +55,9 @@ const Calender = () => {
           if (index < offset) {
             return <div key={index}></div>;
           } else if (index >= offset && index - offset < lastDay.getDate()) {
+            debugger
             return (
-              <div className="day" key={index}>
+              <div className="day" key={index} onClick={() => handleDateClick(index - offset)}>
                 {days[index - offset].getDate()}
               </div>
             );
