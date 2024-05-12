@@ -18,3 +18,8 @@ export const getTaskFromDate = (date) => {
 export const setDayTasks = (input, date) => {
     dateWithTodo[date] = {...dateWithTodo[date], [input]:false}
 }
+
+export const setDayTasksStatus = (input, date, status) => {
+    debugger
+    dateWithTodo[date][input] = status; 
+}

@@ -13,6 +13,11 @@ body {
         font-size: 30px;
         font-family: "IBM Plex Mono", monospace;
         height: 15vh;
+        align-items: center;
+
+        .monthHeading {
+            // width: 250px;
+        }
     }
     .days {
         display: grid;

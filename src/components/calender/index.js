@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import "./index.scss";
+import { GrNext, GrPrevious } from "react-icons/gr";
 
-const Calender = ({passDate}) => {
-  const year = 2024;
-  const month = 4;
+const Calender = ({ passDate }) => {
+  const [year, setYear] = useState(2024);
+  const [month, setMonth] = useState(4);
   const firstDay = new Date(year, month, 1);
   const lastDay = new Date(year, month + 1, 0);
   const weekDay = [
@@ -35,7 +36,25 @@ const Calender = ({passDate}) => {
   }
 
   const handleDateClick = (index) => {
-    passDate(days[index].toString().slice(4,15));
+    passDate(days[index].toString().slice(4, 15));
+  }
+
+  const changeMonth = (action, month) => {
+    console.log("month=>", month)
+    if (action === "prev")
+      if (month === 0) {
+        setYear(year - 1);
+        setMonth(11);
+      }
+      else {
+        setMonth(month - 1);
+      }
+    else
+      if (month === 11) {
+        setMonth(0);
+        setYear(year + 1);
+      } else
+        setMonth(month + 1);
   }
 
   debugger
@@ -44,8 +63,10 @@ const Calender = ({passDate}) => {
   return (
     <div className="calender">
       <div className="monthAndYear">
+        <GrPrevious onClick={() => changeMonth("prev", month)} />
         <h2 className="monthHeading">{months[month].toUpperCase()}</h2>
         <h2 className="year">{year}</h2>
+        <GrNext onClick={() => changeMonth("next", month)} />
       </div>
       <div className="days">
         {weekDay.map((day) => {

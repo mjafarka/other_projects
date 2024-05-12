@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 import "./index.scss";
 import ToDoList from "./toDoHelper/ToDoList";
-import { getTaskFromDate } from "../dummyDB/db";
+import { getTaskFromDate, setDayTasks, setDayTasksStatus } from "../dummyDB/db";
 
 function ToDo({date}) {
   const [pending, setPending] = useState({});
@@ -11,6 +11,7 @@ function ToDo({date}) {
   }, [date]);
 
   const handleCheckClick = (prop) => {
+    setDayTasksStatus(prop, date, !pending[prop]);
     setPending({ ...pending, [prop]: !pending[prop] });
   };
 
@@ -22,6 +23,7 @@ function ToDo({date}) {
   const submitInput = (input) => {
     console.log("input",input);
     setPending({ ...pending, [input]: false });
+    setDayTasks(input,date);
     setInput("");
   };
 
