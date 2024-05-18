@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import './index.scss'
+import React from 'react';
+import './index.scss';
 
 function YearAndMonth({ currMonth, year, months, setMonth, setYear }) {
 
@@ -27,7 +27,7 @@ function YearAndMonth({ currMonth, year, months, setMonth, setYear }) {
                     <optgroup>
                         {months.map((month) => {
                             return <option value={month} key={month}>{
-                                <div>{ month }</div>
+                              <h2>{ month }</h2>
                             }</option>
                         })}
                     </optgroup>

@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import CheckBox from "../checkBox";
 import "./Element.scss";
 
 function Element(props) {
   const { id, list, handleCheckClick, setRightClicked, rightClicked } = props;
-console.log("right clicked", rightClicked);
+
+  const [editClicked, setEditClicked] = useState(false);
 
   const rightClickHandler = (e) => {
     e.preventDefault();
@@ -14,7 +15,7 @@ console.log("right clicked", rightClicked);
 
   return (
     <div>
-      <label key={id} onContextMenu={(e) => rightClickHandler(e,id)}>
+      <label key={id} onContextMenu={(e) => rightClickHandler(e, id)}>
         <div className="textAndCheckBox">
           <CheckBox
             style={{ display: id === rightClicked ? "none" : "inline-block" }}
@@ -22,11 +23,16 @@ console.log("right clicked", rightClicked);
             onComplete={() => handleCheckClick(id)}
             className="checkBox"
           />
-          <p>{id}</p>
+          {!editClicked ? <p>{id}</p> : <input type="text" placeholder="" value={id} ></input>}
         </div>
         <div style={{ display: id === rightClicked ? "inline-block" : "none" }}>
-          <button>Edit</button>
-          <button>Delete</button>
+          {!editClicked ? (
+            <>
+              <button onClick={() => setEditClicked(true)}>Edit</button>
+              <button>Delete</button>
+            </>
+          ) : <button>Update</button>}
+
         </div>
       </label>
     </div>
