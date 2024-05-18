@@ -40,3 +40,25 @@
         margin: 0 -70px 0 -39px;
     }
 }
+
+.yearContainer {
+
+    .selectYear {
+        border: none;
+        background-color: rgb(226, 208, 215);
+        appearance: none;
+    }
+
+    select {
+        font-size: 45px;
+        border: none;
+        -webkit-appearance: none;
+        outline: none;
+        font-family: "IBM Plex Mono", monospace;
+        font-weight: 700;
+        text-align: center;
+        margin-right: 10px;
+        margin-left: -0px;
+    }
+}
+
