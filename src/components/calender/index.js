@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./index.scss";
 import { GrNext, GrPrevious } from "react-icons/gr";
+import YearAndMonth from "./calenderComponent/monthAndYear";
 
 const Calender = ({ passDate }) => {
   const [year, setYear] = useState(2024);
@@ -63,10 +64,9 @@ const Calender = ({ passDate }) => {
   return (
     <div className="calender">
       <div className="monthAndYear">
-        <GrPrevious onClick={() => changeMonth("prev", month)} />
-        <h2 className="monthHeading">{months[month].toUpperCase()}</h2>
-        <h2 className="year">{year}</h2>
-        <GrNext onClick={() => changeMonth("next", month)} />
+        <GrPrevious onClick={() => changeMonth("prev", month)} className="navigator" />
+        <YearAndMonth currMonth={month} year={year} months={months} setMonth={setMonth} setYear={setYear} />
+        <GrNext onClick={() => changeMonth("next", month)} className="navigator" />
       </div>
       <div className="days">
         {weekDay.map((day) => {

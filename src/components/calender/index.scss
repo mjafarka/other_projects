@@ -15,8 +15,8 @@ body {
         height: 15vh;
         align-items: center;
 
-        .monthHeading {
-            // width: 250px;
+        .navigator {
+            cursor: pointer;
         }
     }
     .days {
@@ -40,6 +40,7 @@ body {
         }
         .day {
             font-size: 26px;
+            cursor: pointer;
         }
 
         // :nth-child(n+1):nth-child(-n+7){

@@ -1,0 +1,15 @@
+.monthContainer {
+    h2 {
+        display: none;
+    }
+    .selectMonth {
+        border: none;
+        background-color: rgb(226, 208, 215);
+        appearance: none;
+
+        .currMonth {
+            font-size: 45px;
+            display: none;
+        }
+    }
+}

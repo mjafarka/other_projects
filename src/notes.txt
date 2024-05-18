@@ -1,0 +1,5 @@
+when you cick on the date
+    is should show a drop down
+    you can basically select from that
+
+when you click on the month also same behavior
