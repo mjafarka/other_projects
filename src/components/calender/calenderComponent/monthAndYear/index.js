@@ -13,13 +13,14 @@ function YearAndMonth({ currMonth, year, months, setMonth, setYear }) {
             {/* <h2>{months[month].toUpperCase()}</h2> */}
             {/* <p>{months}</p> */}
             <div className='monthContainer'>
-                <h2>{months[currMonth]}</h2>
                 <select value={months[currMonth]} onChange={handleMonthChange} className='selectMonth'>
-                    {months.map((month) => {
-                        return <option value={month} key={month}>{
-                            <h2 className='currMonth'>{month}</h2>
+                    <optgroup>
+                        {months.map((month) => {
+                            return <option value={month} key={month}>{
+                                <h2 className='currMonth'>{month}</h2>
                             }</option>
-                    })}
+                        })}
+                    </optgroup>
                 </select>
             </div>
             <h2>{year}</h2>
