@@ -58,7 +58,6 @@ const Calender = ({ passDate }) => {
         setMonth(month + 1);
   }
 
-  debugger
   const cells = new Array(35).fill(null);
   let offset = firstDay.getDay();
   return (
@@ -76,7 +75,6 @@ const Calender = ({ passDate }) => {
           if (index < offset) {
             return <div key={index}></div>;
           } else if (index >= offset && index - offset < lastDay.getDate()) {
-            debugger
             return (
               <div className="day" key={index} onClick={() => handleDateClick(index - offset)}>
                 {days[index - offset].getDate()}

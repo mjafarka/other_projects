@@ -3,3 +3,21 @@ when you cick on the date
     you can basically select from that
 
 when you click on the month also same behavior
+
+
+--------------------------------------------------------
+Need to add tasks with unique id
+
+1. while adding add the id in datewithid table       x
+2. add task into idWithTaskAndStatus table           x
+
+3. need to set pending with object 
+    uniqueId: {task: abc, status:false}              x
+
+4. for checkmark tic/untick case 
+
+5. **** handleCheckClick should have parameter id **** calling in todo
+6. inside elements change how they are checking clicked or not           x
+7. change the setRightClicked int todo
+
+

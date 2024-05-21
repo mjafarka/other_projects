@@ -1,29 +1,31 @@
 import React, { useMemo, useState } from "react";
+import { addTodo, getTaskFromDate, toggleTodoCheckBox } from "../dummyDB/db";
 import "./index.scss";
+import { createUniqueId } from "./miscelleneous/SingeUseFunctions";
 import ToDoList from "./toDoHelper/ToDoList";
-import { getTaskFromDate, setDayTasks, setDayTasksStatus } from "../dummyDB/db";
 
 function ToDo({date}) {
-  const [pending, setPending] = useState({});
+  const [todos, setTodos] = useState({});
   const [input, setInput] = useState("");
   useMemo(() => {
-    setPending(getTaskFromDate(date));
+    setTodos(getTaskFromDate(date));
   }, [date]);
 
-  const handleCheckClick = (prop) => {
-    setDayTasksStatus(prop, date, !pending[prop]);
-    setPending({ ...pending, [prop]: !pending[prop] });
+  const handleCheckClick = (id) => {
+    toggleTodoCheckBox(id);
+    let currStatus = todos[id].status;
+    setTodos({ ...todos, [id] : {...todos[id], status: !currStatus}});
   };
 
   const appendInput = (val) => {
-    debugger;
     setInput(val);
   };
 
   const submitInput = (input) => {
-    console.log("input",input);
-    setPending({ ...pending, [input]: false });
-    setDayTasks(input,date);
+    debugger
+    let id = createUniqueId();
+    setTodos({ ...todos, [id]: {task: {input}, status: false} });
+    addTodo(id, input, date);
     setInput("");
   };
 
@@ -31,8 +33,7 @@ function ToDo({date}) {
     <div className="todo">
       <h3 className="todosHeading">TODOS</h3>
       <ToDoList
-        name={"Pending"}
-        list={pending}
+        todos={todos}
         handleCheckClick={handleCheckClick}
       />
       <div className="appendInput">

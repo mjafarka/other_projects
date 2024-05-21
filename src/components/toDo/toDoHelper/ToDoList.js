@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "../index.scss";
 import Element from "./htmlBlocks/Element";
+import { isChecked } from "../../dummyDB/db";
 
 
-const ToDoList = ({ name, list, handleCheckClick }) => {
-  const [rightClicked, setRightClicked] = useState(-1);
+const ToDoList = ({ todos, handleCheckClick }) => {
+  const [rightClicked, setRightClicked] = useState('ab');
 
   const [elements, setElements] = useState([]);
 
@@ -16,24 +17,24 @@ const ToDoList = ({ name, list, handleCheckClick }) => {
 
   useEffect(() => {
     const tempElements = [];
-    for (let id in list) {
+    for (let id in todos) {
       tempElements.push(<Element id={id}
-        list={list}
+        list={todos}
         handleCheckClick={handleCheckClick}
         rightClicked={rightClicked}
         setRightClicked={(id) => handleRightClick(id)} />)
     }
     setElements(tempElements);
-  }, [rightClicked, list]);
+  }, [rightClicked, todos]);
   return (
     <div>
       {/* <h4 className="checkedItem">{name === "Completed" ? "Checked Items" : ""}</h4> */}
       <div className="todos">
-        {elements.filter(element => (!element.props.list[element.props.id])).map(pend => {
+        {elements.filter(element => (!isChecked(element.props.id))).map(pend => {
           return pend;
         })}
         <h4>Completed</h4>
-        {elements.filter(element => (element.props.list[element.props.id])).map(pend => {
+        {elements.filter(element => (isChecked(element.props.id))).map(pend => {
           return pend;
         })}
       </div>
