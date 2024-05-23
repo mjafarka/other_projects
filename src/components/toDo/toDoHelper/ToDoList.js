@@ -4,7 +4,7 @@ import Element from "./htmlBlocks/Element";
 import { isChecked } from "../../dummyDB/db";
 
 
-const ToDoList = ({ todos, handleCheckClick }) => {
+const ToDoList = ({ todos, handleCheckClick, deleteTodos }) => {
   const [rightClicked, setRightClicked] = useState('ab');
 
   const [elements, setElements] = useState([]);
@@ -22,7 +22,9 @@ const ToDoList = ({ todos, handleCheckClick }) => {
         list={todos}
         handleCheckClick={handleCheckClick}
         rightClicked={rightClicked}
-        setRightClicked={(id) => handleRightClick(id)} />)
+        setRightClicked={(id) => handleRightClick(id)} 
+        deleteTodos={(id) => deleteTodos(id)}
+        />)
     }
     setElements(tempElements);
   }, [rightClicked, todos]);

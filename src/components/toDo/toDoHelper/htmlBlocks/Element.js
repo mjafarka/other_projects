@@ -1,17 +1,32 @@
 import React, { useState } from "react";
 import CheckBox from "../checkBox";
 import "./Element.scss";
-import { getTaskFromId, isChecked } from "../../../dummyDB/db";
+import { deleteTodosFromDB, getTaskFromId, isChecked, updateTodos } from "../../../dummyDB/db";
 
 function Element(props) {
-  const { id, handleCheckClick, setRightClicked, rightClicked } = props;
+  const { id, handleCheckClick, setRightClicked, rightClicked, deleteTodos } = props;
 
   const [editClicked, setEditClicked] = useState(false);
+  const [value, setValue] = useState(getTaskFromId(id));
   
   const rightClickHandler = (e) => {
     e.preventDefault();
     setRightClicked(id);
   };
+
+  const updateInputHandler = (e) => {
+    setValue(e.target.value);
+  }
+
+  const updateHandler = () => {
+    updateTodos(id,value);
+    setRightClicked(false);
+    setEditClicked(false);
+  }
+
+  const handleDelete = (id) => {
+    deleteTodos(id)
+  }
 
 
   return (
@@ -24,17 +39,16 @@ function Element(props) {
             onComplete={() => handleCheckClick(id)}
             className="checkBox"
           />
-          {editClicked && id === rightClicked ? <input type="text" placeholder="" value={getTaskFromId(id)} ></input> : <p>{getTaskFromId(id)}</p>}
+          {editClicked && id === rightClicked ? <input type="text" placeholder="" value={value} onChange={(e) => updateInputHandler(e)} ></input> : <p>{getTaskFromId(id)}</p>}
         </div>
       </label>
       <div style={{ display: id === rightClicked ? "inline-block" : "none" }}>
-        {console.log("id", id, "rightClicked", rightClicked)}
         {!editClicked ? (
           <>
             <button onClick={() => setEditClicked(true)}>Edit</button>
-            <button>Delete</button>
+            <button onClick={() => handleDelete(id)}>Delete</button>
           </>
-        ) : <button>Update</button>}
+        ) : <button onClick={updateHandler}>Update</button>}
       </div>
     </div>
   );

@@ -19,7 +19,6 @@ const dateWithId = {
 }
 
 export const addTodo = (id, input, date) => {
-    console.log("input = ", input, " id = ", id);
     if (dateWithId[date] === undefined) {
         dateWithId[date] = [id]
     } else {
@@ -41,7 +40,6 @@ export const getTaskFromDate = (date) => {
     let todosForADay = {};
     for (let index in dateWithId[date]) {
         let id = dateWithId[date][index];
-        console.log(id);
         todosForADay[id] = idWithTaskAndStatus[id];
     }
     return todosForADay;
@@ -50,6 +48,18 @@ export const getTaskFromDate = (date) => {
 export const getTaskFromId = (id) => {
     let task = idWithTaskAndStatus[id]?.task;
     return task;
+}
+
+export const updateTodos = (id, value) => {
+    idWithTaskAndStatus[id] = {...idWithTaskAndStatus[id], task : value};
+}
+
+export const deleteTodosFromDB = (id,date) => {
+    delete idWithTaskAndStatus[id];
+    let index = dateWithId[date].indexOf(id); //index of id in date table
+    if (index > -1) {
+        dateWithId[date].splice(index,1);  //1 means only remove one element
+    }
 }
 
 // export const getTaskFromDate = (date) => {

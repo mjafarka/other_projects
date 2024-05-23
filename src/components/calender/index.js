@@ -41,7 +41,6 @@ const Calender = ({ passDate }) => {
   }
 
   const changeMonth = (action, month) => {
-    console.log("month=>", month)
     if (action === "prev")
       if (month === 0) {
         setYear(year - 1);

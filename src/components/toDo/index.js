@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { addTodo, getTaskFromDate, toggleTodoCheckBox } from "../dummyDB/db";
+import { addTodo, deleteTodosFromDB, getTaskFromDate, toggleTodoCheckBox } from "../dummyDB/db";
 import "./index.scss";
 import { createUniqueId } from "./miscelleneous/SingeUseFunctions";
 import ToDoList from "./toDoHelper/ToDoList";
@@ -29,12 +29,18 @@ function ToDo({date}) {
     setInput("");
   };
 
+  const deleteTodos = (id) => {
+    deleteTodosFromDB(id, date);
+    setTodos(getTaskFromDate(date));
+  }
+
   return (
     <div className="todo">
       <h3 className="todosHeading">TODOS</h3>
       <ToDoList
         todos={todos}
         handleCheckClick={handleCheckClick}
+        deleteTodos={(id) => deleteTodos(id)}
       />
       <div className="appendInput">
       <div>
