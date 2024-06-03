@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import CheckBox from "../checkBox";
 import "./Element.scss";
 import { deleteTodosFromDB, getTaskFromId, isChecked, updateTodos } from "../../../dummyDB/db";
+import { isCheckedHandler } from "../../miscelleneous/SingeUseFunctions";
 
 function Element(props) {
   const { id, handleCheckClick, setRightClicked, rightClicked, deleteTodos } = props;
@@ -35,7 +36,7 @@ function Element(props) {
         <div className="textAndCheckBox">
           <CheckBox
             style={{ display: id === rightClicked ? "none" : "inline-block" }}
-            checked={isChecked(id) ? true : false}
+            checked={isCheckedHandler(id) ? true : false}
             onComplete={() => handleCheckClick(id)}
             className="checkBox"
           />

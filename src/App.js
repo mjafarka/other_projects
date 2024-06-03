@@ -3,7 +3,6 @@ import { useState } from 'react';
 import './App.css';
 import Calender from './components/calender';
 import ToDo from './components/toDo';
-
 function App() {
 
   const [clickedDate, setClickedDate] = useState(new Date().toString().slice(4,15))

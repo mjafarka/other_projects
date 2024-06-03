@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../index.scss";
 import Element from "./htmlBlocks/Element";
-import { isChecked } from "../../dummyDB/db";
+import { isCheckedHandler } from "../miscelleneous/SingeUseFunctions";
 
 
 const ToDoList = ({ todos, handleCheckClick, deleteTodos }) => {
@@ -13,6 +13,7 @@ const ToDoList = ({ todos, handleCheckClick, deleteTodos }) => {
     setRightClicked(id);
   }
 
+
   //from list we are getting the object {1:true}
 
   useEffect(() => {
@@ -22,9 +23,9 @@ const ToDoList = ({ todos, handleCheckClick, deleteTodos }) => {
         list={todos}
         handleCheckClick={handleCheckClick}
         rightClicked={rightClicked}
-        setRightClicked={(id) => handleRightClick(id)} 
+        setRightClicked={(id) => handleRightClick(id)}
         deleteTodos={(id) => deleteTodos(id)}
-        />)
+      />)
     }
     setElements(tempElements);
   }, [rightClicked, todos]);
@@ -32,11 +33,11 @@ const ToDoList = ({ todos, handleCheckClick, deleteTodos }) => {
     <div>
       {/* <h4 className="checkedItem">{name === "Completed" ? "Checked Items" : ""}</h4> */}
       <div className="todos">
-        {elements.filter(element => (!isChecked(element.props.id))).map(pend => {
+        {elements.filter(element => (!isCheckedHandler(element.props.id))).map(pend => {
           return pend;
         })}
         <h4>Completed</h4>
-        {elements.filter(element => (isChecked(element.props.id))).map(pend => {
+        {elements.filter(element => (isCheckedHandler(element.props.id))).map(pend => {
           return pend;
         })}
       </div>

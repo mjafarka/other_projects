@@ -1,39 +1,72 @@
-const dateWithTodo = {
-    "May 11 2024": {
-        1: true,
-        2: false
-    }, "May 12 2024": {
-        1: true,
-        2: true,
-        3: true,
-        4: true
-    }
-}
-
 const idWithTaskAndStatus = {
 
 }
 
 const dateWithId = {
-    
+
 }
 
 export const addTodo = (id, input, date) => {
+
+    const todo = {
+        id: id,
+        task: input,
+        date: date,
+        status: false
+    }
+
+    const stringy = JSON.stringify(todo);
+    fetch('http://localhost:8080/todo/add_todo', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: stringy
+    })
+        // .then(response => response.json())
+        .then(data => console.log("todo added: ", data))
+        .catch(err => console.log("Error adding todo: ", err));
     if (dateWithId[date] === undefined) {
         dateWithId[date] = [id]
     } else {
         dateWithId[date].push(id);
     }
-    idWithTaskAndStatus[id] = {task: input, status: false};
+    idWithTaskAndStatus[id] = { task: input, status: false };
 }
 
-export const isChecked = (id) => {
-    return idWithTaskAndStatus[id]?.status;
+// export const isChecked = (id) => {
+//     let checked;
+//     fetch(`http://localhost:8080/todo/isChecked/${id}`, {
+//         method: 'GET',
+//     })
+//         // .then(response => response.text)
+//         .then(data => console.log("data - ",data))
+//         .catch(err => console.log("Error in checking isChecked", err));
+//     return checked;
+// }
+
+export const isChecked = async (id) => {
+    try {
+        const response = await fetch(`http://localhost:8080/todo/isChecked/${id}`,{
+            method: 'GET',
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        console.log("data - ", data);
+        return data;
+    } catch (err) {
+        console.log("Error in isChecked", err) 
+        return null;
+    }
 }
 
 export const toggleTodoCheckBox = (id) => {
     let checked = idWithTaskAndStatus[id].status;
-    idWithTaskAndStatus[id] = {...idWithTaskAndStatus[id], status : !checked}
+    idWithTaskAndStatus[id] = { ...idWithTaskAndStatus[id], status: !checked }
 }
 
 export const getTaskFromDate = (date) => {
@@ -51,27 +84,13 @@ export const getTaskFromId = (id) => {
 }
 
 export const updateTodos = (id, value) => {
-    idWithTaskAndStatus[id] = {...idWithTaskAndStatus[id], task : value};
+    idWithTaskAndStatus[id] = { ...idWithTaskAndStatus[id], task: value };
 }
 
-export const deleteTodosFromDB = (id,date) => {
+export const deleteTodosFromDB = (id, date) => {
     delete idWithTaskAndStatus[id];
     let index = dateWithId[date].indexOf(id); //index of id in date table
     if (index > -1) {
-        dateWithId[date].splice(index,1);  //1 means only remove one element
+        dateWithId[date].splice(index, 1);  //1 means only remove one element
     }
 }
-
-// export const getTaskFromDate = (date) => {
-//     debugger;
-//     return dateWithTodo[date];
-// }
-
-// export const setDayTasks = (input, date) => {
-//     dateWithTodo[date] = {...dateWithTodo[date], [input]:false}
-// }
-
-// export const setDayTasksStatus = (input, date, status) => {
-//     debugger
-//     dateWithTodo[date][input] = status; 
-// }
