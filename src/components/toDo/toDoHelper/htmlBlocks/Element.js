@@ -45,10 +45,7 @@ function Element(props) {
             onComplete={() => handleCheckClick(id)}
             className="checkBox"
           />
-          {editClicked && id === rightClicked ? <input type="text" placeholder="" value={value} onChange={(e) => updateInputHandler(e)} ></input> : <p>{async () => {
-            let task = await getTaskFromId(id)
-            console.log("task ; ", task)
-            return task}}</p>}
+          {editClicked && id === rightClicked ? <input type="text" placeholder="" value={value} onChange={(e) => updateInputHandler(e)} ></input> : <p>{async () => await getTaskFromId(id)}</p>}
         </div>
       </label>
       <div style={{ display: id === rightClicked ? "inline-block" : "none" }}>
