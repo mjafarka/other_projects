@@ -5,13 +5,12 @@ export const createUniqueId = () => {
     return id;
 }
 
-export const isCheckedHandler = (id) => {
+export const isCheckedHandler = async (id) => {
     let bool = false;
     try {
-      isChecked(id).then(function (res) {
+      await isChecked(id).then(function (res) {
         bool = res;
       })
-      console.log("inside isCheckedHanlder ", bool);
     } catch (err) {
       console.log("inside isCheckhandler", err);
     }

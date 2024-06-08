@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import CheckBox from "../checkBox";
 import "./Element.scss";
 import { deleteTodosFromDB, getTaskFromId, isChecked, updateTodos } from "../../../dummyDB/db";
@@ -8,7 +8,12 @@ function Element(props) {
   const { id, handleCheckClick, setRightClicked, rightClicked, deleteTodos } = props;
 
   const [editClicked, setEditClicked] = useState(false);
-  const [value, setValue] = useState(getTaskFromId(id));
+  const [value, setValue] = useState(async () => await getTaskFromId(id));
+
+  // useMemo( async () => {
+  //   let val = await getTaskFromId(id);
+  //   console.log(val)
+  // },[])
   
   const rightClickHandler = (e) => {
     e.preventDefault();
@@ -19,8 +24,8 @@ function Element(props) {
     setValue(e.target.value);
   }
 
-  const updateHandler = () => {
-    updateTodos(id,value);
+  const updateHandler = async() => {
+    await updateTodos(id,value);
     setRightClicked(false);
     setEditClicked(false);
   }
@@ -40,7 +45,10 @@ function Element(props) {
             onComplete={() => handleCheckClick(id)}
             className="checkBox"
           />
-          {editClicked && id === rightClicked ? <input type="text" placeholder="" value={value} onChange={(e) => updateInputHandler(e)} ></input> : <p>{getTaskFromId(id)}</p>}
+          {editClicked && id === rightClicked ? <input type="text" placeholder="" value={value} onChange={(e) => updateInputHandler(e)} ></input> : <p>{async () => {
+            let task = await getTaskFromId(id)
+            console.log("task ; ", task)
+            return task}}</p>}
         </div>
       </label>
       <div style={{ display: id === rightClicked ? "inline-block" : "none" }}>

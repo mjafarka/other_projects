@@ -7,12 +7,13 @@ import ToDoList from "./toDoHelper/ToDoList";
 function ToDo({date}) {
   const [todos, setTodos] = useState({});
   const [input, setInput] = useState("");
-  useMemo(() => {
-    setTodos(getTaskFromDate(date));
+  useMemo(async() => {
+      let output = await getTaskFromDate(date);
+    setTodos(await getTaskFromDate(date));
   }, [date]);
 
-  const handleCheckClick = (id) => {
-    toggleTodoCheckBox(id);
+  const handleCheckClick = async (id) => {
+    await toggleTodoCheckBox(id);
     let currStatus = todos[id].status;
     setTodos({ ...todos, [id] : {...todos[id], status: !currStatus}});
   };
@@ -21,17 +22,17 @@ function ToDo({date}) {
     setInput(val);
   };
 
-  const submitInput = (input) => {
+  const submitInput = async (input) => {
     debugger
     let id = createUniqueId();
     setTodos({ ...todos, [id]: {task: {input}, status: false} });
-    addTodo(id, input, date);
+    await addTodo(id, input, date);
     setInput("");
   };
 
-  const deleteTodos = (id) => {
-    deleteTodosFromDB(id, date);
-    setTodos(getTaskFromDate(date));
+  const deleteTodos = async (id) => {
+    await deleteTodosFromDB(id);
+    setTodos(await getTaskFromDate(date));
   }
 
   return (
