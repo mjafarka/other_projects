@@ -8,12 +8,14 @@ function Element(props) {
   const { id, handleCheckClick, setRightClicked, rightClicked, deleteTodos } = props;
 
   const [editClicked, setEditClicked] = useState(false);
-  const [value, setValue] = useState(async () => await getTaskFromId(id));
+  const [value, setValue] = useState('');
 
-  // useMemo( async () => {
-  //   let val = await getTaskFromId(id);
-  //   console.log(val)
-  // },[])
+  useMemo( async () => {
+    let val = await getTaskFromId(id);
+    setValue(val);
+    console.log(val, "edit clicked", editClicked)
+    // console.log("current : ", id, "  ; right clicked : ", rightClicked );
+  },[])
   
   const rightClickHandler = (e) => {
     e.preventDefault();
@@ -35,6 +37,17 @@ function Element(props) {
   }
 
 
+  const checker = async () => {
+    if (editClicked && id === rightClicked) 
+      console.log("checker ;" ,"true")
+    else
+      console.log("checker ;" ,"false")
+
+    let task = await getTaskFromId(id);
+    console.log("task ckecker", task)
+  }
+
+
   return (
     <div>
       <label key={id} onContextMenu={(e) => rightClickHandler(e, id)}>
@@ -45,7 +58,8 @@ function Element(props) {
             onComplete={() => handleCheckClick(id)}
             className="checkBox"
           />
-          {editClicked && id === rightClicked ? <input type="text" placeholder="" value={value} onChange={(e) => updateInputHandler(e)} ></input> : <p>{async () => await getTaskFromId(id)}</p>}
+          {console.log("came here")}
+          {editClicked && id === rightClicked ? <input type="text" placeholder="" value={value} onChange={(e) => updateInputHandler(e)} ></input> : <p>{value}</p>}
         </div>
       </label>
       <div style={{ display: id === rightClicked ? "inline-block" : "none" }}>
