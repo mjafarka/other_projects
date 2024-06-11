@@ -20,7 +20,6 @@ const ToDoList = ({ todos, handleCheckClick, deleteTodos }) => {
     const tempElements = [];
     for (let id in todos) {
       tempElements.push(<Element id={id}
-        list={todos}
         handleCheckClick={handleCheckClick}
         rightClicked={rightClicked}
         setRightClicked={(id) => handleRightClick(id)}

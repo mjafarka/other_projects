@@ -1,7 +1,7 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import CheckBox from "../checkBox";
 import "./Element.scss";
-import { deleteTodosFromDB, getTaskFromId, isChecked, updateTodos } from "../../../dummyDB/db";
+import { getTaskFromId, updateTodos } from "../../../dummyDB/db";
 import { isCheckedHandler } from "../../miscelleneous/SingeUseFunctions";
 
 function Element(props) {
@@ -9,13 +9,17 @@ function Element(props) {
 
   const [editClicked, setEditClicked] = useState(false);
   const [value, setValue] = useState('');
-
-  useMemo( async () => {
-    let val = await getTaskFromId(id);
-    setValue(val);
-    console.log(val, "edit clicked", editClicked)
-    // console.log("current : ", id, "  ; right clicked : ", rightClicked );
-  },[])
+  const [check, setCheck] = useState(true);
+  console.log("value = ", value)
+  useEffect( () => {
+    async function fetchData() {
+      let val = await getTaskFromId(id);
+      setValue(val);
+      let checked = await isCheckedHandler(id);
+      setCheck(checked);
+    }
+    fetchData();
+  },[id])
   
   const rightClickHandler = (e) => {
     e.preventDefault();
@@ -54,11 +58,10 @@ function Element(props) {
         <div className="textAndCheckBox">
           <CheckBox
             style={{ display: id === rightClicked ? "none" : "inline-block" }}
-            checked={isCheckedHandler(id) ? true : false}
+            checked={check ? true : false}
             onComplete={() => handleCheckClick(id)}
             className="checkBox"
           />
-          {console.log("came here")}
           {editClicked && id === rightClicked ? <input type="text" placeholder="" value={value} onChange={(e) => updateInputHandler(e)} ></input> : <p>{value}</p>}
         </div>
       </label>
