@@ -9,14 +9,15 @@ const ToDoList = ({ todos, handleCheckClick, deleteTodos }) => {
 
   const [elements, setElements] = useState([]);
 
+  const [checked, setChecked] = useState({});
+
   const handleRightClick = (id) => {
     setRightClicked(id);
   }
 
 
-  //from list we are getting the object {1:true}
-
   useEffect(() => {
+    console.log("refreshed");
     const tempElements = [];
     for (let id in todos) {
       tempElements.push(<Element id={id}
@@ -25,18 +26,26 @@ const ToDoList = ({ todos, handleCheckClick, deleteTodos }) => {
         setRightClicked={(id) => handleRightClick(id)}
         deleteTodos={(id) => deleteTodos(id)}
       />)
+      async function checkId(id) {
+        await isCheckedHandler(id).then(res => setChecked(prev => ({...prev,[id]:res})));
+      }
+      checkId(id);
     }
     setElements(tempElements);
   }, [rightClicked, todos]);
+
+  const isChecked = (id) => {
+    
+  }
+
   return (
     <div>
-      {/* <h4 className="checkedItem">{name === "Completed" ? "Checked Items" : ""}</h4> */}
       <div className="todos">
-        {elements.filter(element => (!isCheckedHandler(element.props.id))).map(pend => {
+        {elements.filter(element => (!checked[element.props.id])).map(pend => {
           return pend;
         })}
         <h4>Completed</h4>
-        {elements.filter(element => (isCheckedHandler(element.props.id))).map(pend => {
+        {elements.filter(element => (checked[element.props.id])).map(pend => {
           return pend;
         })}
       </div>

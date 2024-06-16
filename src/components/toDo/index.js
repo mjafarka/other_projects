@@ -8,14 +8,16 @@ function ToDo({date}) {
   const [todos, setTodos] = useState({});
   const [input, setInput] = useState("");
   useMemo(async() => {
-      let output = await getTaskFromDate(date);
     setTodos(await getTaskFromDate(date));
   }, [date]);
 
   const handleCheckClick = async (id) => {
-    await toggleTodoCheckBox(id);
-    let currStatus = todos[id].status;
-    setTodos({ ...todos, [id] : {...todos[id], status: !currStatus}});
+    await toggleTodoCheckBox(id).then(() => {
+      let currStatus = todos[id].status;
+      setTodos({ ...todos, [id] : {...todos[id], status: !currStatus}});
+    }).catch(err => {
+      console.log("error in handleCheckClick");
+    })
   };
 
   const appendInput = (val) => {

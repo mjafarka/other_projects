@@ -84,12 +84,6 @@ export const toggleTodoCheckBox = async (id) => {
 }
 
 export const getTaskFromDate = async (date) => {
-    // let todosForADay = {};
-    // for (let index in dateWithId[date]) {
-    //     let id = dateWithId[date][index];
-    //     todosForADay[id] = idWithTaskAndStatus[id];
-    // }
-    // return todosForADay;
 
     let body = date
     try {

@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import CheckBox from "../checkBox";
 import "./Element.scss";
-import { getTaskFromId, updateTodos } from "../../../dummyDB/db";
+import { getTaskFromId, toggleTodoCheckBox, updateTodos } from "../../../dummyDB/db";
 import { isCheckedHandler } from "../../miscelleneous/SingeUseFunctions";
 
 function Element(props) {
   const { id, handleCheckClick, setRightClicked, rightClicked, deleteTodos } = props;
-
   const [editClicked, setEditClicked] = useState(false);
   const [value, setValue] = useState('');
   const [check, setCheck] = useState(true);
-  console.log("value = ", value)
+
   useEffect( () => {
     async function fetchData() {
       let val = await getTaskFromId(id);
@@ -19,7 +18,7 @@ function Element(props) {
       setCheck(checked);
     }
     fetchData();
-  },[id])
+  },[id,handleCheckClick])
   
   const rightClickHandler = (e) => {
     e.preventDefault();
@@ -50,7 +49,6 @@ function Element(props) {
     let task = await getTaskFromId(id);
     console.log("task ckecker", task)
   }
-
 
   return (
     <div>
