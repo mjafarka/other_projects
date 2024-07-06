@@ -4,8 +4,9 @@ import { GrNext, GrPrevious } from "react-icons/gr";
 import YearAndMonth from "./calenderComponent/monthAndYear";
 
 const Calender = ({ passDate }) => {
-  const [year, setYear] = useState(2024);
-  const [month, setMonth] = useState(4);
+  const currentDay = new Date();
+  const [year, setYear] = useState(currentDay.getFullYear());
+  const [month, setMonth] = useState(currentDay.getMonth());
   const firstDay = new Date(year, month, 1);
   const lastDay = new Date(year, month + 1, 0);
   const weekDay = [
